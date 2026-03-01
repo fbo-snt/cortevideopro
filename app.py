@@ -64,7 +64,7 @@ if st.button("🚀 Processar Downloads", type="primary", use_container_width=Tru
                             
                             # Configuração perfeita para rodar no PC sem bloqueios
                             ydl_opts = {
-                                'format': 'best',
+                                'format': 'b[ext=mp4]/best',
                                 'outtmpl': caminho_video,
                                 'download_ranges': download_range_func(None, [(inicio_sec, fim_sec)]),
                                 'force_keyframes_at_cuts': True,
@@ -101,4 +101,5 @@ if st.button("🚀 Processar Downloads", type="primary", use_container_width=Tru
                                 st.error(f"❌ Erro no Corte {corte['index']}: {e}")
                                 
                 except Exception as e:
+
                     st.error(f"❌ Erro ao processar: {e}")
