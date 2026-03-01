@@ -62,13 +62,14 @@ if st.button("🚀 Processar Downloads", type="primary", use_container_width=Tru
                             nome_base = limpar_nome_arquivo(corte['titulo']) if corte['titulo'].strip() else f"Trecho_{corte['index']}"
                             caminho_video = os.path.join(tmpdirname, f"{nome_base}.mp4")
                             
-                            # Configuração perfeita para rodar no PC sem bloqueios
+                           # Configuração estrita para estabilidade em servidores Linux
                             ydl_opts = {
-                                'format': 'b[ext=mp4]/best',
+                                'format': 'best[ext=mp4]/best',
                                 'outtmpl': caminho_video,
                                 'download_ranges': download_range_func(None, [(inicio_sec, fim_sec)]),
                                 'force_keyframes_at_cuts': True,
-                                'quiet': True,
+                                'verbose': True, # Essencial: expõe o erro real do FFmpeg nos logs
+                                'nocheckcertificate': True,
                                 'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
                             }
                             
@@ -103,3 +104,4 @@ if st.button("🚀 Processar Downloads", type="primary", use_container_width=Tru
                 except Exception as e:
 
                     st.error(f"❌ Erro ao processar: {e}")
+
